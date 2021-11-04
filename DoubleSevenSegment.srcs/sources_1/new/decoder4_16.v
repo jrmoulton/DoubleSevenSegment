@@ -20,12 +20,13 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module decoder4_16(d, o);
-    input [3:0] d;
-    output [15:0] o;
-    assign en1 = d[3];
-    assign en2 = ~d[3];
+module decoder4_16(in, out);
+    input [3:0] in;
+    output [15:0] out;
+	wire en1, en2;
+    assign en1 = in[3];
+    assign en2 = ~in[3];
     
-    decoder3_8 s1(d[2:0], en1, o[7:0]);
-    decoder3_8 s2(d[2:0], en2, o[15:8]);
+    decoder3_8 s1(in[2:0], en1, out[7:0]);
+    decoder3_8 s2(in[2:0], en2, out[15:8]);
 endmodule

@@ -23,7 +23,7 @@
 module decoder3_8(d, en, o);
 	input [2:0] d;
 	input en;
-	output reg [0:7] o;
+	output reg [7:0] o;
 
 	always @(*) begin
 		if (en) begin

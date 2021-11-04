@@ -3,7 +3,7 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date: 10/21/2021 11:20:31 AM
+// Create Date: 10/28/2021 11:04:31 AM
 // Design Name: 
 // Module Name: decoder4_16_test
 // Project Name: 
@@ -20,27 +20,32 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module decoder4_16_test();
-    reg [3:0] in;
-    wire [15:0] out;
+module NewSevenSegment_test();
+    reg [3:0] wxyz;
+
+	wire [6:0] segNew, segTruthTable, err;
+	wire not_the_same;
     
     reg clk;
-    reg [3:0] count;
     
-    decoder4_16 UUT( .in(in), .out(out) );
+    NewSevenSegment DUT( .wxyz(wxyz), .seg(segNew));
+	SevenSegmentTruthTable REF(.N(wxyz), .D(segTruthTable));
+
     
     initial begin
-        in = 0;
-        count = 0;
+        wxyz = 0;
         clk = 0;
         
         #100;
         
         forever #10 clk=~clk;
     end
+
+	assign err = segNew^segTruthTable;
+	assign not_the_same = |err;
     
     always @(posedge clk) begin
-        count <= count + 1;
-        in <= count[3:0];
+		wxyz = wxyz + 1;
     end
 endmodule
+
